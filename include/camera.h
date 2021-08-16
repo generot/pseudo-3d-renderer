@@ -1,8 +1,8 @@
 #ifndef __CAMERA_H__
 #define __CAMERA_H__
 
-#define DEF_FOV 70
-#define DEF_RAY_NUM 600
+#define DEF_FOV 120
+#define DEF_RAY_NUM 800
 
 #define X_AXIS 0
 #define Y_AXIS 1
@@ -12,12 +12,12 @@
 
 #include "renderer.h"
 
-typedef void (*ray_handler)(SDL_Renderer*, line, map, point, int);
+typedef void (*ray_handler)(SDL_Renderer*, line, map, point, int, float);
 
 typedef struct {
     int fov;
     int ray_amount;
-    double raylen;
+    float raylen;
 
     int *offset_angle;
     point *pos;
@@ -30,7 +30,7 @@ typedef struct {
     float ds;
 } distance;
 
-camera make_camera(int fov, int ray_n, double raylen, point *pos, int *offset_ang, ray_handler rfunc);
+camera make_camera(int fov, int ray_n, float raylen, point *pos, int *offset_ang, ray_handler rfunc);
 void update_camera(camera *cam, map mp, SDL_Renderer *rnd);
 
 distance get_closest_intr_pt(line ray, map mp, point pos);

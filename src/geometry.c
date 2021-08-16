@@ -21,14 +21,14 @@ line make_line(point p1, point p2) {
     };
 }
 
-line line_from_angle(point origin, double angle, double ray_len) {
+line line_from_angle(point origin, float angle, float ray_len) {
     point angled_line = {
         .x = cosf(RAD(angle)) * ray_len,
         .y = sinf(RAD(angle)) * ray_len
     };
 
     angled_line = vector_sum(angled_line, origin);
-
+    
     return make_line(origin, angled_line);
 }
 

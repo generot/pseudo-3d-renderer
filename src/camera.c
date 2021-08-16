@@ -1,6 +1,6 @@
 #include "../include/camera.h"
 
-camera make_camera(int fov, int ray_n, double raylen, point *pos, int *offset_ang, ray_handler rfunc) {
+camera make_camera(int fov, int ray_n, float raylen, point *pos, int *offset_ang, ray_handler rfunc) {
     camera new_cam = {0};
 
     new_cam.fov = fov == USE_DEF ? DEF_FOV : fov;
@@ -16,15 +16,15 @@ camera make_camera(int fov, int ray_n, double raylen, point *pos, int *offset_an
 }
 
 void update_camera(camera *cam, map mp, SDL_Renderer *rnd) {
-    double angle_inc = (double)cam->fov / cam->ray_amount;
+    float angle_inc = (float)cam->fov / (float)cam->ray_amount;
     int ray_ix = 0;
 
-    for(double ang = (double)*cam->offset_angle; 
-        ang < (double)cam->fov + (double)*cam->offset_angle; 
-        ang += angle_inc) 
+    for(float ang = (float)cam->fov + (float)*cam->offset_angle; 
+        ang >= (float)*cam->offset_angle; 
+        ang -= angle_inc) 
     {
         line ray = line_from_angle(*cam->pos, ang, cam->raylen);
-        cam->rfunc(rnd, ray, mp, *cam->pos, ray_ix);
+        cam->rfunc(rnd, ray, mp, *cam->pos, ray_ix, ang);
 
         ray_ix++;
     }

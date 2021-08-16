@@ -3,7 +3,7 @@
 
 #include <math.h>
 
-#define G_PI 3.1415926
+#define G_PI 3.1415926f
 #define RAD(x) ((x) * G_PI / 180)
 #define SQ(x) ((x) * (x))
 
@@ -21,7 +21,7 @@ typedef struct {
 } line;
 
 line make_line(point p1, point p2);
-line line_from_angle(point origin, double angle, double ray_len);
+line line_from_angle(point origin, float angle, float ray_len);
 
 vector vector_sum(vector v1, vector v2);
 vector vector_diff(vector v1, vector v2);

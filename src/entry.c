@@ -1,12 +1,14 @@
 #include "../include/renderer.h"
 #include "../include/camera.h"
 
-void handle_ray(SDL_Renderer *rnd, line ray, map mp, point pos, int ray_ix) {
+void handle_ray(SDL_Renderer *rnd, line ray, map mp, point pos, int ray_ix, float angle) {
     distance closest_pt = get_closest_intr_pt(ray, mp, pos);
     if(!closest_pt.p.is_valid) return;
 
-    float rect_w = floorf(DEF_WND_WIDTH / DEF_RAY_NUM);
-    float rect_h = DEF_WND_HEIGHT / closest_pt.ds;
+    float _dist = closest_pt.ds;
+
+    float rect_w = (float)DEF_WND_WIDTH / (float)DEF_RAY_NUM;
+    float rect_h = DEF_WND_HEIGHT / _dist;
 
     SDL_FRect rc = {
         .x = rect_w * (float)ray_ix,
@@ -60,8 +62,8 @@ int SDL_main(int argc, char *argv[]) {
     int angle_offset = 0;
 
     camera main_cam = make_camera(
-        90, USE_DEF,
-        2000,
+        USE_DEF, USE_DEF,
+        200 * 200,
         &player_pos, 
         &angle_offset, 
         handle_ray
@@ -86,8 +88,8 @@ int SDL_main(int argc, char *argv[]) {
         char *msg =
         "W - Move forward\n"
         "S - Move backward\n"
-        "E - Turn left\n"
-        "F - Turn right\n";
+        "F - Turn left\n"
+        "E - Turn right\n";
 
         SDL_ShowSimpleMessageBox(
             SDL_MESSAGEBOX_INFORMATION, 
@@ -114,13 +116,13 @@ int SDL_main(int argc, char *argv[]) {
                 case SDLK_s:
                     translate(&player_pos, screen_sz, -1, dir_angle);
                     break;
-                case SDLK_f:
+                case SDLK_e:
                     if(angle_offset >= 360)
                         angle_offset = 0;
 
                     angle_offset += TURN_SPEED;
                     break;
-                case SDLK_e:
+                case SDLK_f:
                     if(angle_offset <= 0) {
                         angle_offset = 360;
                     }
