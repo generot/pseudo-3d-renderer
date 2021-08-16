@@ -117,10 +117,7 @@ int SDL_main(int argc, char *argv[]) {
                     translate(&player_pos, screen_sz, -1, dir_angle);
                     break;
                 case SDLK_e:
-                    if(angle_offset >= 360)
-                        angle_offset = 0;
-
-                    angle_offset += TURN_SPEED;
+                    angle_offset = (angle_offset + TURN_SPEED) % 361;
                     break;
                 case SDLK_f:
                     if(angle_offset <= 0) {
