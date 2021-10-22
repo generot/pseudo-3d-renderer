@@ -24,7 +24,7 @@ White line - Wall
 
 ![demo](img/demo.gif)
 
-As can be seen, not the entire map is rendered, due to the rays not being long enough to properly intersect the rest of the map.
+As can be seen, not the entire map is rendered, due to the rays not being long enough to properly intersect with the rest of the map.
 
 ## Map maker
 The Map maker is a simplistic JavaScript-written browser application. You can do the following in it:
